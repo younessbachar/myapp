@@ -1,20 +1,18 @@
-import React from 'react';
-import Header from '../components/header';
-import Footer from '../components/footer';
+import React from "react";
+import Header from "../components/header";
+import Footer from "../components/footer";
+import { MainContent } from "../components/MainContent";
 
 const HTML = () => {
   return (
     <div>
       <>
         <Header />
-      <main>
-        HTML page
-      </main>
-      <Footer />
-    </>
+        <MainContent PageName="HTML page" />
+        <Footer />
+      </>
     </div>
   );
-}
+};
 
 export default HTML;
-

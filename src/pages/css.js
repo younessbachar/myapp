@@ -1,20 +1,18 @@
-import React from 'react';
-import Header from '../components/header';
-import Footer from '../components/footer';
+import React from "react";
+import Header from "../components/header";
+import Footer from "../components/footer";
+import { MainContent } from "../components/MainContent";
 
 const Css = () => {
   return (
     <div>
       <>
-      <Header />
-      <main>
-        CSS page
-      </main>
-      <Footer />
-    </>
+        <Header />
+        <MainContent PageName="CSS page" />
+        <Footer />
+      </>
     </div>
   );
-}
+};
 
 export default Css;
-

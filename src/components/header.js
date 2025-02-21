@@ -1,17 +1,19 @@
-import React from 'react'
+import React from "react";
+import { Link, NavLink } from "react-router-dom";
 
 const Header = () => {
   return (
     <>
-     <header className="hide-when-mobile">
-        <h1>Courses 4 Arab</h1>
+      <header className="hide-when-mobile">
+        <h1>
+          <Link to="/">Courses 4 Arab</Link>
+        </h1>
         <ul className="flex">
           <li className="main-list">
-            <a className="main-link" href="/html">
-              
-              HTML 
-            </a>
-          {/* <ul className="sub-ul">
+            <NavLink className="main-link" to="/html">
+              HTML
+            </NavLink>
+            {/* <ul className="sub-ul">
               <li>
                 <a href="">Full Course</a>
               </li>
@@ -24,10 +26,10 @@ const Header = () => {
             </ul> */}
           </li>
           <li className="main-list">
-            <a className="main-link" href="/css">
+            <NavLink className="main-link" to="/css">
               {" "}
               CSS{" "}
-            </a>
+            </NavLink>
             {/*<ul className="sub-ul">
               <li>
                 <a href="">Full Course</a>
@@ -52,10 +54,10 @@ const Header = () => {
             </ul>*/}
           </li>
           <li className="main-list">
-            <a className="main-link" href="/javascript">
+            <NavLink className="main-link" to="/javascript">
               {" "}
               JavaScript{" "}
-            </a>
+            </NavLink>
             {/*<ul className="sub-ul sub-of-js">
               <li>
                 <a href="">coming soon🔥</a>
@@ -64,7 +66,7 @@ const Header = () => {
           </li>
         </ul>
       </header>
-      <header style={{background: "red"}} className="show-when-mobile">
+      <header style={{ background: "red" }} className="show-when-mobile">
         <h1>Courses 4 Arab</h1>
         <label className="absolute" htmlFor="burger">
           <i className="fas fa-bars" />
@@ -133,7 +135,7 @@ const Header = () => {
         </div>
       </header>
     </>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;
