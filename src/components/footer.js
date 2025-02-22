@@ -1,9 +1,9 @@
 import React from 'react'
-
+import "./footer.css"
 const Footer = () => {
   return (
        <footer>
-        DDDesigned and developed by youness bachar-khir
+        Designed and developed by youness bachar-khir
         <span>🧡</span>
       </footer>
   )
