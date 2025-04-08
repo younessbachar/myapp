@@ -1,19 +1,41 @@
-import React from "react";
+import React, { useContext } from 'react';
 import Home from "./pages/home";
 import HTML from "./pages/html";
 import Css from "./pages/css";
 import Javascript from "./pages/javascript";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import {RouterProvider , createBrowserRouter } from 'react-router-dom';
+import ThemeContext from './context/ThemeContext';
+
+
 function App() {
+ const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home />,
+  },
+  {
+    path: "/html",
+    element: <HTML />,
+  },
+  {
+    path: "/css",
+    element: <Css />,
+  },
+  {
+    path: "/javascript",
+    element: <Javascript />,
+  },
+  
+  
+]); 
+  
+ // eslint-disable-next-line no-undef
+ const {theme} = useContext(ThemeContext);
+
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" exact element={<Home />} />
-        <Route path="/html" exact element={<HTML />} />
-        <Route path="/css" exact element={<Css />} />
-        <Route path="/javascript" exact element={<Javascript />} />
-      </Routes>
-    </BrowserRouter>
+    <div className={`${theme}`}>
+      <RouterProvider router={router}/>
+    </div>
   );
 }
 
