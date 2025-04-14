@@ -5,6 +5,8 @@ import Css from "./pages/css";
 import Javascript from "./pages/javascript";
 import {RouterProvider , createBrowserRouter } from 'react-router-dom';
 import ThemeContext from './context/ThemeContext';
+import Signin from './pages/Signin';
+import Singup from './pages/Singup';
 
 
 function App() {
@@ -24,6 +26,14 @@ function App() {
   {
     path: "/javascript",
     element: <Javascript />,
+  },
+  {
+    path: "/signin",
+    element: <Signin />,
+  },
+  {
+    path: "/signup",
+    element: <Singup />,
   },
   
   

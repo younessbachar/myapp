@@ -9,8 +9,6 @@ import { ThemeProvider } from './context/ThemeContext';
 
 
 
-import './theme.css';
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   

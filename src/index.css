@@ -49,3 +49,47 @@ h1 {
   padding: 20px;
   font-size: 25px;
 }
+
+/* Signin & Signup form*/
+form{
+  display: flex;
+  flex-direction: column;
+}
+
+form input {
+  margin-bottom: 18px;
+  padding: 6px 4px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  color: #111;
+}
+
+form button {
+  padding: 6px 4px;
+  border: none;
+  border-radius: 4px;
+  background-color: teal;
+  color: white;
+  cursor: pointer;  
+}
+
+.account{
+  font-size: 16px;
+  font-weight: 100;
+}
+
+.account a{
+  text-decoration: underline;
+  color: teal;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.Light form p{
+  color: #111;
+}
+
+form button:active{
+  scale: 0.9;
+}
