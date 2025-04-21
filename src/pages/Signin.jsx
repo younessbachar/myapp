@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../components/header";
 import Footer from "../components/footer";
 import { Helmet } from "react-helmet-async";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase/config";
 
 const Signin = () => {
+  let navigate = useNavigate()
+  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [haserror, seterror] = useState(false)
+  const [firebaseError, setfirebaseError] = useState("")
   return (
     <>
       <Helmet>
@@ -20,11 +24,10 @@ const Signin = () => {
       </Helmet>
       <Header />
       <main>
-        <>
+        <div style={{display:"flex", justifyContent:"center", alignItems:"center", flexDirection:"column"}}>
           <h1 style={{ textAlign: "center", marginBottom: "20px" }}>
             Welcome back! <span>🧡</span>
           </h1>
-          <br />
           <form>
             <input
               onChange={(eo) => {
@@ -45,11 +48,36 @@ const Signin = () => {
                     // Signed in
                     const user = userCredential.user;
                     console.log(user);
-                    // ...
+                    navigate("/");
                   })
                   .catch((error) => {
                     const errorCode = error.code;
-                    const errorMessage = error.message;
+                    seterror(true);
+                    switch (errorCode) {
+                      case "auth/invalid-email":
+                        setfirebaseError("The email address is not valid.");
+                        break;
+
+                      case "auth/user-disabled":
+                        setfirebaseError("This user account has been disabled.");
+                        break;
+
+                      case "auth/user-not-found":
+                        setfirebaseError("No user found with this email.");
+                        break;
+
+                      case "auth/wrong-password":
+                        setfirebaseError("The password is incorrect.");
+                        break;
+
+                      case "auth/invalid-credential":
+                        setfirebaseError("Invalid email or password.");
+                        break;
+
+                      default:
+                        setfirebaseError("An unexpected error occurred. Please try again.");
+                        break;
+                    }
                   });
               }}
             >
@@ -59,7 +87,8 @@ const Signin = () => {
               D'ont have an account? <Link to="/signup">Signup</Link>
             </p>
           </form>
-        </>
+        {haserror && <p style={{ color: "red", marginTop: "10px" }}>{firebaseError}</p>}
+        </div>
       </main>
       <Footer />
     </>

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Home from "./pages/home";
 import HTML from "./pages/html";
 import Css from "./pages/css";
@@ -7,6 +7,8 @@ import {RouterProvider , createBrowserRouter } from 'react-router-dom';
 import ThemeContext from './context/ThemeContext';
 import Signin from './pages/Signin';
 import Singup from './pages/Singup';
+import Profile from './pages/profile';
+import About from './pages/about';
 
 
 function App() {
@@ -16,16 +18,8 @@ function App() {
     element: <Home />,
   },
   {
-    path: "/html",
-    element: <HTML />,
-  },
-  {
-    path: "/css",
-    element: <Css />,
-  },
-  {
-    path: "/javascript",
-    element: <Javascript />,
+    path: "/about",
+    element: <About />,
   },
   {
     path: "/signin",
@@ -35,6 +29,10 @@ function App() {
     path: "/signup",
     element: <Singup />,
   },
+  {
+    path: "/profile",
+    element: <Profile />,
+  }
   
   
 ]); 

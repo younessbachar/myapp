@@ -6,15 +6,17 @@ import { getAuth ,createUserWithEmailAndPassword} from "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyD-I8NhkfqnfszrjPQzOmDFa4PnSGF0dwk",
-  authDomain: "myapp-f81bb.firebaseapp.com",
-  projectId: "myapp-f81bb",
-  storageBucket: "myapp-f81bb.firebasestorage.app",
-  messagingSenderId: "184530657930",
-  appId: "1:184530657930:web:29fbbbc0708be4d7e3c373"
+  apiKey: "AIzaSyAoV_ov0yB4ro74ba9eHIu3UQuZtJKY0UU",
+  authDomain: "reactapp-b5c91.firebaseapp.com",
+  projectId: "reactapp-b5c91",
+  storageBucket: "reactapp-b5c91.firebasestorage.app",
+  messagingSenderId: "779711909833",
+  appId: "1:779711909833:web:cd4ef7ed63ce884edba218",
+  measurementId: "G-S28TQNBBCD"
 };
 
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
+
