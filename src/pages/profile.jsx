@@ -5,15 +5,20 @@ import Moment from 'react-moment';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/header';
 import Footer from '../components/footer';
+import { deleteUser } from 'firebase/auth';
 
 const Profile = () => {
   const [user, loading, error] = useAuthState(auth);
   let navigate = useNavigate();
   useEffect(() => {
     if (!loading && !user) {
-      navigate("/"); // Redirect to the signin page if the user is not logged in
+      navigate("/"); 
     }
-  }, [user, loading]); // Add `user` and `navigate` as dependencies
+    if(user && !user.emailVerified){
+      navigate("/"); 
+    }
+  }); 
+
 
   if (loading) {
     return (
@@ -41,7 +46,15 @@ const Profile = () => {
       <p>email: {user.email}</p>
       <p>created at: <Moment from={user.metadata.creationTime} /></p>
       <p>last login: <Moment from={user.metadata.lastSignInTime} /></p>
-      <button className='delete'>Delete account</button>
+      <button onClick={()=>{
+        deleteUser(user).then(() => {
+          // User deleted.
+          console.log("user deleted");
+        }).catch((error) => {
+          // An error ocurred
+          // ...
+        });
+      }} className='delete'>Delete account</button>
     </main >
     <Footer />
     </>

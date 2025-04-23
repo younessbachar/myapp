@@ -1,18 +1,30 @@
 import React, { useEffect, useState } from "react";
+import "./signin.css";
 import Header from "../components/header";
 import Footer from "../components/footer";
 import { Helmet } from "react-helmet-async";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase/config";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const Signin = () => {
-  let navigate = useNavigate()
-  
+  let navigate = useNavigate();
+  const [user, loading, error] = useAuthState(auth);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [haserror, seterror] = useState(false)
-  const [firebaseError, setfirebaseError] = useState("")
+  const [haserror, seterror] = useState(false);
+  const [firebaseError, setfirebaseError] = useState("");
+  const [showSendemail, setshowSendemail] = useState(false);
+  const [showform, setshowform] = useState("");
+  const [resetemail, setresetemail] = useState("");
+
+
+  useEffect(() => {
+    if (user && user.emailVerified) {
+      navigate("/");
+    }
+  });
   return (
     <>
       <Helmet>
@@ -24,7 +36,49 @@ const Signin = () => {
       </Helmet>
       <Header />
       <main>
-        <div style={{display:"flex", justifyContent:"center", alignItems:"center", flexDirection:"column"}}>
+        <form className={`forgotpassword ${showform}`}>
+          <div
+            className="close"
+            onClick={() => {
+              setshowform("");
+            }}
+          >
+            <i className="fa-solid fa-xmark"></i>
+          </div>
+          <input onChange={(eo) => setresetemail(eo.target.value)} required placeholder="Email" type="email" />
+          <button
+            onClick={(eo) => {
+              eo.preventDefault();
+              sendPasswordResetEmail(auth, resetemail)
+                .then(() => {
+                  // Password reset email sent!
+                  // ..
+                })
+                .catch((error) => {
+                  const errorCode = error.code;
+                  const errorMessage = error.message;
+                  console.log(errorCode);
+                  // ..
+                });
+              setshowSendemail(true);
+            }}
+          >
+            Reset password
+          </button>
+          {showSendemail && (
+            <p className="check-email">
+              Please check your email to reset your password
+            </p>
+          )}
+        </form>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
+          }}
+        >
           <h1 style={{ textAlign: "center", marginBottom: "20px" }}>
             Welcome back! <span>🧡</span>
           </h1>
@@ -37,9 +91,14 @@ const Signin = () => {
               placeholder="Email"
               type="email"
             />
-            <input onChange={(eo)=>{
-                setPassword(eo.target.value)
-            }} required placeholder="password" type="password" />
+            <input
+              onChange={(eo) => {
+                setPassword(eo.target.value);
+              }}
+              required
+              placeholder="password"
+              type="password"
+            />
             <button
               onClick={(eo) => {
                 eo.preventDefault();
@@ -59,7 +118,9 @@ const Signin = () => {
                         break;
 
                       case "auth/user-disabled":
-                        setfirebaseError("This user account has been disabled.");
+                        setfirebaseError(
+                          "This user account has been disabled."
+                        );
                         break;
 
                       case "auth/user-not-found":
@@ -75,7 +136,9 @@ const Signin = () => {
                         break;
 
                       default:
-                        setfirebaseError("An unexpected error occurred. Please try again.");
+                        setfirebaseError(
+                          "An unexpected error occurred. Please try again."
+                        );
                         break;
                     }
                   });
@@ -86,8 +149,18 @@ const Signin = () => {
             <p className="account">
               D'ont have an account? <Link to="/signup">Signup</Link>
             </p>
+            <p
+              onClick={() => {
+                setshowform("showforgotpassword");
+              }}
+              className="forgotpass"
+            >
+              forgot password ?
+            </p>
           </form>
-        {haserror && <p style={{ color: "red", marginTop: "10px" }}>{firebaseError}</p>}
+          {haserror && (
+            <p style={{ color: "red", marginTop: "10px" }}>{firebaseError}</p>
+          )}
         </div>
       </main>
       <Footer />

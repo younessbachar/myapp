@@ -10,8 +10,11 @@ const About = () => {
   const [user, loading, error] = useAuthState(auth)
   let navigate = useNavigate();
   useEffect(()=>{
-    if(!user){
+    if(!user && !loading){
       navigate("/");
+    }
+    if(user && !user.emailVerified){
+      navigate("/")
     }
   })
   return (
