@@ -7,6 +7,7 @@ import { auth } from "../firebase/config";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { sendEmailVerification } from "firebase/auth";
+import Loading from "../components/loading";
 
 
 
@@ -22,11 +23,7 @@ const Home = () => {
   
   if (loading) {
     return (
-      <>
-        <Header />
-        <main>Loading ........</main>
-        <Footer />
-      </>
+      <Loading />
     );
   }
   

@@ -14,3 +14,11 @@ main{
  
   text-align: center;
 }
+
+.Light main p {
+  color : #555;
+}
+
+.Light main time {
+  color : #555;
+}

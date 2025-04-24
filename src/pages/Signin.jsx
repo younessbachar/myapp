@@ -7,6 +7,7 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase/config";
 import { useAuthState } from "react-firebase-hooks/auth";
+import Loading from "../components/loading";
 
 const Signin = () => {
   let navigate = useNavigate();
@@ -25,6 +26,73 @@ const Signin = () => {
       navigate("/");
     }
   });
+
+   const SigninForm = (eo) =>{
+    eo.preventDefault();
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        console.log(user);
+        navigate("/");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        seterror(true);
+        switch (errorCode) {
+          case "auth/invalid-email":
+            setfirebaseError("The email address is not valid.");
+            break;
+
+          case "auth/user-disabled":
+            setfirebaseError(
+              "This user account has been disabled."
+            );
+            break;
+
+          case "auth/user-not-found":
+            setfirebaseError("No user found with this email.");
+            break;
+
+          case "auth/wrong-password":
+            setfirebaseError("The password is incorrect.");
+            break;
+
+          case "auth/invalid-credential":
+            setfirebaseError("Invalid email or password.");
+            break;
+
+          default:
+            setfirebaseError(
+              "An unexpected error occurred. Please try again."
+            );
+            break;
+        }
+      });
+  
+   }
+
+   const ForgotPassword = (eo)=>{
+    eo.preventDefault();
+    sendPasswordResetEmail(auth, resetemail)
+      .then(() => {
+        // Password reset email sent!
+        // ..
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode);
+        // ..
+      });
+    setshowSendemail(true);
+   }
+
+  if(loading){
+    return(
+      <Loading />
+    )
+  }
   return (
     <>
       <Helmet>
@@ -36,41 +104,6 @@ const Signin = () => {
       </Helmet>
       <Header />
       <main>
-        <form className={`forgotpassword ${showform}`}>
-          <div
-            className="close"
-            onClick={() => {
-              setshowform("");
-            }}
-          >
-            <i className="fa-solid fa-xmark"></i>
-          </div>
-          <input onChange={(eo) => setresetemail(eo.target.value)} required placeholder="Email" type="email" />
-          <button
-            onClick={(eo) => {
-              eo.preventDefault();
-              sendPasswordResetEmail(auth, resetemail)
-                .then(() => {
-                  // Password reset email sent!
-                  // ..
-                })
-                .catch((error) => {
-                  const errorCode = error.code;
-                  const errorMessage = error.message;
-                  console.log(errorCode);
-                  // ..
-                });
-              setshowSendemail(true);
-            }}
-          >
-            Reset password
-          </button>
-          {showSendemail && (
-            <p className="check-email">
-              Please check your email to reset your password
-            </p>
-          )}
-        </form>
         <div
           style={{
             display: "flex",
@@ -101,47 +134,7 @@ const Signin = () => {
             />
             <button
               onClick={(eo) => {
-                eo.preventDefault();
-                signInWithEmailAndPassword(auth, email, password)
-                  .then((userCredential) => {
-                    // Signed in
-                    const user = userCredential.user;
-                    console.log(user);
-                    navigate("/");
-                  })
-                  .catch((error) => {
-                    const errorCode = error.code;
-                    seterror(true);
-                    switch (errorCode) {
-                      case "auth/invalid-email":
-                        setfirebaseError("The email address is not valid.");
-                        break;
-
-                      case "auth/user-disabled":
-                        setfirebaseError(
-                          "This user account has been disabled."
-                        );
-                        break;
-
-                      case "auth/user-not-found":
-                        setfirebaseError("No user found with this email.");
-                        break;
-
-                      case "auth/wrong-password":
-                        setfirebaseError("The password is incorrect.");
-                        break;
-
-                      case "auth/invalid-credential":
-                        setfirebaseError("Invalid email or password.");
-                        break;
-
-                      default:
-                        setfirebaseError(
-                          "An unexpected error occurred. Please try again."
-                        );
-                        break;
-                    }
-                  });
+                SigninForm(eo)
               }}
             >
               Signin
@@ -162,6 +155,29 @@ const Signin = () => {
             <p style={{ color: "red", marginTop: "10px" }}>{firebaseError}</p>
           )}
         </div>
+        <form className={`forgotpassword ${showform}`}>
+          <div
+            className="close"
+            onClick={() => {
+              setshowform("");
+            }}
+          >
+            <i className="fa-solid fa-xmark"></i>
+          </div>
+          <input onChange={(eo) => setresetemail(eo.target.value)} required placeholder="Email" type="email" />
+          <button
+            onClick={(eo) => {
+              ForgotPassword(eo);
+            }}
+          >
+            Reset password
+          </button>
+          {showSendemail && (
+            <p className="check-email">
+              Please check your email to reset your password
+            </p>
+          )}
+        </form>
       </main>
       <Footer />
     </>

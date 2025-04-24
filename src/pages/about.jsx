@@ -5,6 +5,7 @@ import { MainContent } from '../components/MainContent'
 import { useNavigate } from 'react-router-dom'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from '../firebase/config'
+import Loading from '../components/loading'
 
 const About = () => {
   const [user, loading, error] = useAuthState(auth)
@@ -17,6 +18,14 @@ const About = () => {
       navigate("/")
     }
   })
+
+  if(loading){
+    return (
+      <Loading />
+    )
+  }
+
+  if(user && user.emailVerified){
   return (
     
       <>
@@ -25,6 +34,7 @@ const About = () => {
         <Footer />
       </>   
   )
+}
 }
 
 export default About

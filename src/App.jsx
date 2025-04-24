@@ -1,8 +1,5 @@
 import React, { useContext, useEffect } from 'react';
 import Home from "./pages/home";
-import HTML from "./pages/html";
-import Css from "./pages/css";
-import Javascript from "./pages/javascript";
 import {RouterProvider , createBrowserRouter } from 'react-router-dom';
 import ThemeContext from './context/ThemeContext';
 import Signin from './pages/Signin';

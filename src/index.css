@@ -104,6 +104,13 @@ form button:active{
 }
 
 button:active{
-  scale: 0.9;
-  transition: all 0.1s;
+  scale: 0.8;
+  transition: all 1s;
+
+}
+
+
+span{
+  font-size: 33px  ;
+  color: #e14656;
 }

@@ -6,10 +6,13 @@ import { useNavigate } from 'react-router-dom';
 import Header from '../components/header';
 import Footer from '../components/footer';
 import { deleteUser } from 'firebase/auth';
+import Loading from '../components/loading';
 
 const Profile = () => {
   const [user, loading, error] = useAuthState(auth);
   let navigate = useNavigate();
+
+
   useEffect(() => {
     if (!loading && !user) {
       navigate("/"); 
@@ -19,17 +22,18 @@ const Profile = () => {
     }
   }); 
 
-
+  const deleteAccount = ()=>{
+    deleteUser(user).then(() => {
+      // User deleted.
+      navigate("/")
+    }).catch((error) => {
+      // An error ocurred
+      // ...
+    });
+  } 
   if (loading) {
     return (
-  <div>
-      <Header />
-      <main>
-        <h3>Loading........</h3>
-      </main>
-      <Footer />
-  </div>
-
+    <Loading />
     ) // Show a loading message while the auth state is being determined
   }
 
@@ -47,13 +51,7 @@ const Profile = () => {
       <p>created at: <Moment from={user.metadata.creationTime} /></p>
       <p>last login: <Moment from={user.metadata.lastSignInTime} /></p>
       <button onClick={()=>{
-        deleteUser(user).then(() => {
-          // User deleted.
-          console.log("user deleted");
-        }).catch((error) => {
-          // An error ocurred
-          // ...
-        });
+        deleteAccount()
       }} className='delete'>Delete account</button>
     </main >
     <Footer />
