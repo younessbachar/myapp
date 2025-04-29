@@ -6,6 +6,7 @@ import Signin from './pages/Signin';
 import Singup from './pages/Singup';
 import Profile from './pages/profile';
 import About from './pages/about';
+import Page404 from './pages/page404';
 
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
   {
     path: "/",
     element: <Home />,
+    errorElement: <Page404 />,
   },
   {
     path: "/about",
