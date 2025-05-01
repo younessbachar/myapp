@@ -1,11 +1,10 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import Header from "../components/header";
 import Footer from "../components/footer";
-import { MainContent } from "../components/MainContent";
 import { Helmet } from "react-helmet-async";
 import { auth } from "../firebase/config";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { sendEmailVerification } from "firebase/auth";
 import Loading from "../components/loading";
 
@@ -13,7 +12,7 @@ import Loading from "../components/loading";
 
 
 const Home = () => {
-  const [user, loading, error] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
   let navigate = useNavigate();
   useEffect(() => {
     if (!user) {

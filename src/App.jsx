@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import Home from "./pages/home";
 import {RouterProvider , createBrowserRouter } from 'react-router-dom';
 import ThemeContext from './context/ThemeContext';
