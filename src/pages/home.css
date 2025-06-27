@@ -1,0 +1,92 @@
+/*========================
+  table of contents
+ ==========================
+1. OPTIONS (filtred data)
+2. Show all tasks
+3. add task*/
+
+
+
+/*========================
+  OPTIONS (filtred data)
+ ==========================*/
+
+
+.home .parent-of-btns button{
+  background-color: #3427c2;
+  font-size: 16px;
+  padding: 8px 13px;
+  border-radius: 7px;
+  border: none;
+  margin-right: 15px;
+}
+
+.home .parent-of-btns select{
+  background: #666;
+  padding: 8px 12px;
+  border-radius: 5px;
+  border: none;
+}
+
+
+ /*========================
+  Show all tasks
+ ==========================*/
+.home .all-tasks{
+  border:2px solid red;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.one-task{
+  border: 2px solid white;
+  margin: 40px 20px;
+  border-radius: 7px;
+  height: 141px;
+  width: 300px;
+  transition: 0.2s;
+}
+
+.one-task:hover{
+  border-left: 10px solid antiquewhite;
+}
+
+.one-task h2{
+  font-size: 23px;
+  margin-top: 13px;
+  margin-bottom: 10px;
+}
+
+.one-task li{
+  list-style-type: circle;
+  list-style-position: inside;
+  font-size: 14px;
+  line-height: 25px;
+  /*wrong */
+  text-align: start;
+  margin: 0 10px;
+}
+.one-task .time{
+  font-size: 11px;
+  text-align: right;
+  margin-right: 8px;
+  color: rgb(164, 213, 255);
+  line-height: 25px;
+}
+
+ /*========================
+  add task
+ ==========================*/
+
+ .home .add-task-btn{
+  background-color: teal;
+  font-size: 16px;
+  padding: 8px 12px;
+  border-radius: 7px;
+  border: none;
+  margin-bottom: 40px;
+ }
+
+ .fa-plus{
+  font-size: 14px;
+ }
