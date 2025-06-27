@@ -393,7 +393,7 @@ a{
     <h2>Couldn't launch :</h2>
     <h3>
       Page Not Found - lets take you{" "}
-      <a href="https://twitter.com/namratapdr">BACK</a>
+      <a href="/">BACK</a>
     </h3>
   </div>
 </>

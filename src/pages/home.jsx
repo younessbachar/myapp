@@ -7,6 +7,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { sendEmailVerification } from "firebase/auth";
 import Loading from "../components/loading";
+import "./home.css"; // Import your CSS file for styling
 
 
 
@@ -38,14 +39,48 @@ const Home = () => {
       </Helmet>
       <div>
         <Header />
-          <main>
-          <p className="pls">
-            Please{" "}
-            <Link style={{ fontSize: "30px" ,cursor:"pointer" ,padding: "10px" , color:"cyan"}} to="/signin">
-              sign in
-            </Link>{" "}
-            to continue... <span>🧡</span>
-          </p>
+          <main className="home">
+          {/* OPTIONS (filtred data) */}
+          <section className="parent-of-btns flex mt">
+            <button>Newest first</button>
+            <button>Oldest first</button>
+            <select id="browsers">
+              <option value="ddd">All tasks</option>
+              <option value="dddd">Completed</option>
+              <option value="ddddd">Not Completed</option>
+            </select>
+          </section>
+          {/* Show all tasks*/}
+          <section className="mt flex all-tasks">
+            <article dir="auto" className="one-task">
+              <h2>New task</h2>
+              <ul>
+                <li>sub task 1</li>
+                <li>sub task 2</li>
+              </ul>
+              <p className="time">a day ago</p>
+            </article>
+            <article dir="auto" className="one-task">
+              <h2>New task</h2>
+              <ul>
+                <li>sub task 1</li>
+                <li>sub task 2</li>
+              </ul>
+              <p className="time">a day ago</p>
+            </article>
+            <article dir="auto" className="one-task">
+              <h2>شراء اللحم</h2>
+              <ul>
+                <li>1 كيلو لحم بقري</li>
+                <li>2 كيلو لحم خروف</li>
+              </ul>
+              <p className="time">a day ago</p>
+            </article>
+          </section>
+          {/* Add New task BTN */}
+          <section className="mt">
+            <button className="add-task-btn">add New task <i className="fa-solid fa-plus"></i></button>
+          </section>
         </main>
         <Footer />
       </div>
