@@ -53,29 +53,15 @@ const Home = () => {
           {/* Show all tasks*/}
           <section className="mt flex all-tasks">
             <article dir="auto" className="one-task">
-              <h2>New task</h2>
+              <Link to="/edit-task">
+               <h2>New task</h2>
               <ul>
                 <li>sub task 1</li>
                 <li>sub task 2</li>
               </ul>
               <p className="time">a day ago</p>
-            </article>
-            <article dir="auto" className="one-task">
-              <h2>New task</h2>
-              <ul>
-                <li>sub task 1</li>
-                <li>sub task 2</li>
-              </ul>
-              <p className="time">a day ago</p>
-            </article>
-            <article dir="auto" className="one-task">
-              <h2>شراء اللحم</h2>
-              <ul>
-                <li>1 كيلو لحم بقري</li>
-                <li>2 كيلو لحم خروف</li>
-              </ul>
-              <p className="time">a day ago</p>
-            </article>
+              </Link>
+            </article>        
           </section>
           {/* Add New task BTN */}
           <section className="mt">

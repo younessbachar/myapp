@@ -7,6 +7,7 @@ import Singup from './pages/Singup';
 import Profile from './pages/profile';
 import About from './pages/about';
 import Page404 from './pages/page404';
+import EditTask from './pages/edit-task/edit-task';
 
 
 function App() {
@@ -31,6 +32,11 @@ function App() {
   {
     path: "/profile",
     element: <Profile />,
+  }
+  ,
+    {
+    path: "/edit-task",
+    element: <EditTask />,
   }
   
   

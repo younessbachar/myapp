@@ -3,7 +3,7 @@ import "./signin.css";
 import Header from "../components/header";
 import Footer from "../components/footer";
 import { Helmet } from "react-helmet-async";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase/config";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -11,7 +11,7 @@ import Loading from "../components/loading";
 
 const Signin = () => {
   let navigate = useNavigate();
-  const [user, loading, error] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [haserror, seterror] = useState(false);
@@ -81,7 +81,7 @@ const Signin = () => {
       })
       .catch((error) => {
         const errorCode = error.code;
-        const errorMessage = error.message;
+        
         console.log(errorCode);
         // ..
       });

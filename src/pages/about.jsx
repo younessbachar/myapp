@@ -8,7 +8,7 @@ import { auth } from '../firebase/config'
 import Loading from '../components/loading'
 
 const About = () => {
-  const [user, loading, error] = useAuthState(auth)
+  const [user, loading] = useAuthState(auth)
   let navigate = useNavigate();
   useEffect(()=>{
     if(!user && !loading){

@@ -3,7 +3,9 @@
  ==========================
 1. OPTIONS (filtred data)
 2. Show all tasks
-3. add task*/
+3. add task
+4.light mode
+*/
 
 
 
@@ -33,7 +35,6 @@
   Show all tasks
  ==========================*/
 .home .all-tasks{
-  border:2px solid red;
   justify-content: center;
   flex-wrap: wrap;
 }
@@ -45,6 +46,7 @@
   height: 141px;
   width: 300px;
   transition: 0.2s;
+  cursor: pointer;
 }
 
 .one-task:hover{
@@ -89,4 +91,19 @@
 
  .fa-plus{
   font-size: 14px;
+ }
+
+/*========================
+  light mode
+ ==========================*/
+ .Light .all-tasks .one-task{
+  background-color: rgb(59, 215, 215);
+  color: white;
+ }
+
+ .Light .all-tasks .one-task:hover{
+ border-left: 6px solid rgb(174, 250, 250);
+}
+ .Light .all-tasks .one-task .time{
+  color: #f1f1f1db;
  }

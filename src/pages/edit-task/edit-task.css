@@ -1,0 +1,145 @@
+/*==========================================================
+ * Table of content
+ *==========================================================*/
+/*==========================================================
+ * 1- title
+ * 2- subtasks
+ * 3- Add-more BTN && DeleteBTN 
+ * 4- Light mode
+ *==========================================================*/
+
+.edit-task {
+  min-height:  calc(100vh - 128.64px);
+}
+
+/*==========================================================
+ * 1- title
+ *==========================================================*/
+ .title-input{
+  background-color: transparent;
+  color: white;
+  font-size: 24px;
+  margin-top: 10px;
+  border: none;
+  font-weight: bold;
+  padding: 10px 6px;
+  border-radius: 20px;
+ }
+.edit-task .fa-pen-to-square{
+  font-size: 24px;
+  
+}
+.edit-task .fa-pen-to-square:hover{
+  transition: all 0.30s;
+  font-size: 20px;
+  cursor: pointer;
+}
+/*==========================================================
+ * 2- subtasks
+ *==========================================================*/
+
+ .subtask{
+  max-width: 620px;
+  margin-left: auto;
+  margin-right: auto;
+ }
+
+ .edit-task .parent-time{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+ }
+
+ .edit-task .time{
+  font-size: 12px;
+ }
+
+ .edit-task #checkbox{
+  width: 17px;
+  height: 17px;
+  accent-color: teal;
+ }
+ .edit-task label{
+  font-size: 17px;
+  margin-left: 10px;
+  position: relative;
+  bottom: 3px;
+ }
+
+ .edit-task .card-task{
+  box-shadow: 0 5px 30px 0 rgba(0, 0, 0, .25);
+  background-color: rgb(65, 71, 84);
+  margin-top: 10px;
+  border-radius: 5px;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  transition: 0.2s;
+  margin-bottom: 10px;
+ }
+ .edit-task .card-task:hover{
+  border-left: 6px solid wheat;
+ }
+ .edit-task .fa-trash{
+  padding-right: 20px;
+  color: rgb(210, 148, 148);
+  font-size: 18px;
+  transition: 0.3s;
+ }
+ .edit-task .fa-trash:hover{
+  color: rgb(241, 79, 79);
+  cursor: pointer;
+ }
+ 
+ /*==========================================================
+ * 3- Add-more BTN && DeleteBTN 
+ *==========================================================*/
+
+  .edit-task .add-more-btn{
+    background-color: teal;
+    padding: 8px 12px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+  }
+  .edit-task .add-more-btn:hover{
+    cursor: pointer;
+    
+  }
+
+  .edit-task .delete{
+    border-radius: 5px;
+    font-size: 16px;
+    border: none;
+    padding: 8px 12px;
+  }
+
+  /*==========================================================
+ * 4- Light mode 
+  *==========================================================*/
+  
+ .Light .edit-task .title .title-input{
+   color: rgba(0, 0, 0, 0.639);
+    background-color: rgba(0, 128, 128, 0.055);
+ }
+
+ .Light .edit-task .title .fa-pen-to-square{
+   color: rgba(0, 0, 0, 0.639);
+ }
+
+  .Light .edit-task .card-task{
+    background-color: rgb(57, 219, 219);
+  }
+
+  .Light .edit-task .time{
+    color: rgba(0, 0, 0, 0.646);
+  }
+
+  .Light .edit-task label{
+    color: rgba(0, 0, 0, 0.646);
+  }
+
+  .Light  .edit-task .card-task:hover{
+  border-left: 6px solid rgb(174, 250, 250);
+ }

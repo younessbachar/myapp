@@ -126,3 +126,7 @@ span{
 .mttt{
   margin-top: 3em;
 }
+
+.center{
+  text-align: center;
+}
