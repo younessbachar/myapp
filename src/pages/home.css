@@ -97,12 +97,12 @@
   light mode
  ==========================*/
  .Light .all-tasks .one-task{
-  background-color: rgb(59, 215, 215);
+  background-color: #666;
   color: white;
  }
 
  .Light .all-tasks .one-task:hover{
- border-left: 6px solid rgb(174, 250, 250);
+ border-left: 6px solid wheat;
 }
  .Light .all-tasks .one-task .time{
   color: #f1f1f1db;

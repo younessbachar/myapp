@@ -16,7 +16,7 @@ const Header = () => {
       <header className="hide-when-mobile ali">
       
         <h1>
-          <Link className="logo" to="/">youyou</Link>
+          <Link className="logo" to="/">B-Y</Link>
         </h1>
         {/* <button
           onClick={() => {

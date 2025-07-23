@@ -61,7 +61,7 @@ const Home = () => {
               </ul>
               <p className="time">a day ago</p>
               </Link>
-            </article>        
+            </article>
           </section>
           {/* Add New task BTN */}
           <section className="mt">
@@ -70,11 +70,30 @@ const Home = () => {
         </main>
         <Footer />
       </div>
-        
       </>
   );
    }// Add `user` and `navigate` as dependencies
  if (user) {
+   if (!user.emailVerified) {
+    return(
+      <>
+        <Header />
+        <main>
+          <p>Welcome : {user.displayName}</p>
+          <p>Please verify your email to continue</p>
+          <button onClick={() => { 
+            sendEmailVerification(auth.currentUser)
+            .then(() => {
+              // Email verification sent!
+              // ...
+            });
+
+           }} className="delete">Send Email</button>
+        </main>
+        <Footer />
+      </>
+    )
+   }
    if (user.emailVerified) {
     return (
       <>
@@ -90,29 +109,8 @@ const Home = () => {
         <main>Welcome: {user.displayName} <span>🧡</span></main>
         <Footer />
       </div>
-        
       </>
   );
-   }
-   if (!user.emailVerified) {
-    return(
-      <>
-        <Header />
-        <main>
-          <p>Welcome : {user.displayName}</p>
-          <p>Please verify your email to continue</p>
-          <button onClick={() => { 
-            sendEmailVerification(auth.currentUser)
-            .then(() => {
-              // Email verification sent!
-              // ...
-            });
-          
-           }} className="delete">Send Email</button>
-        </main>
-        <Footer />
-      </>
-    )
    }
  }
 

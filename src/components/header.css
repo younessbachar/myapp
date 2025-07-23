@@ -10,6 +10,7 @@
   align-items: center;
 }
 
+
 /* ==================
     3. header of mobile
 ===================== */
@@ -17,7 +18,7 @@
 
 .signout{
   all: unset;
-  padding: 8px 15px;
+  padding: 6px 15px;
 }
 
 /* ==================
@@ -47,4 +48,43 @@
 
 .logo:hover {
   font-size: x-large;
+}
+
+/* ==================
+    4. header animation
+===================== */
+
+header{
+    animation: down 1s 1;
+}
+
+ h1{
+     animation: ltr 2s 1;
+     
+ }
+
+ @keyframes down{
+    0%{
+        transform: translateY(-100px);
+    }
+
+    100%{
+        transform: translateY(0);
+    }
+}
+
+.main-list {
+  padding: 8px 12px;
+  font-size: 19px;
+  position: relative;
+}
+
+.main-link {
+  padding: 8px 14px;
+}
+
+.main-link:hover , .main-link.active{
+  color: cyan;
+  box-shadow: 0 0 5px cyan;
+  border-radius: 5px;
 }

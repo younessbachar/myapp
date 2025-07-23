@@ -129,7 +129,7 @@
  }
 
   .Light .edit-task .card-task{
-    background-color: rgb(57, 219, 219);
+    background-color: #666;
   }
 
   .Light .edit-task .time{
@@ -141,5 +141,5 @@
   }
 
   .Light  .edit-task .card-task:hover{
-  border-left: 6px solid rgb(174, 250, 250);
+  border-left: 6px solid wheat;
  }

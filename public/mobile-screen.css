@@ -22,3 +22,7 @@ span{
   font-size: 20px !important;
 }
  
+.hide-when-mobile {
+  display: flex;
+  justify-content: space-around;
+}
