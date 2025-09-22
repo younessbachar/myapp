@@ -1,33 +1,28 @@
-import React, { useEffect, useState } from "react";
-import "./signin.css";
 import Header from "../components/header";
 import Footer from "../components/footer";
+
+import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { Link, useNavigate } from "react-router-dom";
-import { sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+} from "firebase/auth";
 import { auth } from "../firebase/config";
-import { useAuthState } from "react-firebase-hooks/auth";
-import Loading from "../components/loading";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./signin.css";
+import Modal from "../shared/Modal";
 
 const Signin = () => {
-  let navigate = useNavigate();
-  const [user, loading] = useAuthState(auth);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [haserror, seterror] = useState(false);
+  const navigate = useNavigate();
+  const [email, setemail] = useState("");
+  const [resetPass, setresetPass] = useState("");
+  const [password, setpassword] = useState("");
+  const [hasError, sethasError] = useState(false);
   const [firebaseError, setfirebaseError] = useState("");
-  const [showSendemail, setshowSendemail] = useState(false);
-  const [showform, setshowform] = useState("");
-  const [resetemail, setresetemail] = useState("");
+  const [showSendEmail, setshowSendEmail] = useState(false);
 
-
-  useEffect(() => {
-    if (user && user.emailVerified) {
-      navigate("/");
-    }
-  });
-
-   const SigninForm = (eo) =>{
+  const signInBTN = (eo) => {
     eo.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
@@ -35,148 +30,132 @@ const Signin = () => {
         const user = userCredential.user;
         console.log(user);
         navigate("/");
+        // ...
       })
       .catch((error) => {
         const errorCode = error.code;
-        seterror(true);
+
+        sethasError(true);
+
         switch (errorCode) {
           case "auth/invalid-email":
-            setfirebaseError("The email address is not valid.");
-            break;
-
-          case "auth/user-disabled":
-            setfirebaseError(
-              "This user account has been disabled."
-            );
+            setfirebaseError("Wrong Email");
             break;
 
           case "auth/user-not-found":
-            setfirebaseError("No user found with this email.");
+            setfirebaseError("Wrong Email");
             break;
 
           case "auth/wrong-password":
-            setfirebaseError("The password is incorrect.");
+            setfirebaseError("Wrong Password");
             break;
 
-          case "auth/invalid-credential":
-            setfirebaseError("Invalid email or password.");
+          case "auth/too-many-requests":
+            setfirebaseError("Too many requests, please try aganin later");
             break;
 
           default:
-            setfirebaseError(
-              "An unexpected error occurred. Please try again."
-            );
+            setfirebaseError("Please check your email & password");
             break;
         }
       });
-  
-   }
+  };
 
-   const ForgotPassword = (eo)=>{
-    eo.preventDefault();
-    sendPasswordResetEmail(auth, resetemail)
-      .then(() => {
-        // Password reset email sent!
-        // ..
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        
-        console.log(errorCode);
-        // ..
-      });
-    setshowSendemail(true);
-   }
+  // LEVEL3
+  const [showModal, setshowModal] = useState(false);
+  const forgotPassword = () => {
+    setshowModal(true);
+  };
 
-  if(loading){
-    return(
-      <Loading />
-    )
-  }
+  const closeModal = () => { 
+    setshowModal(false);
+   }
   return (
     <>
       <Helmet>
-        <title>Signin Page</title>
-        <meta
-          name="description"
-          content="Signin Page created using create-react-app"
-        />
+        <title>Signin</title>
       </Helmet>
       <Header />
+
       <main>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            flexDirection: "column",
-          }}
-        >
-          <h1 style={{ textAlign: "center", marginBottom: "20px" }}>
-            Welcome back! <span>🧡</span>
-          </h1>
-          <form>
-            <input
-              onChange={(eo) => {
-                setEmail(eo.target.value);
-              }}
-              required
-              placeholder="Email"
-              type="email"
-            />
-            <input
-              onChange={(eo) => {
-                setPassword(eo.target.value);
-              }}
-              required
-              placeholder="password"
-              type="password"
-            />
-            <button
-              onClick={(eo) => {
-                SigninForm(eo)
-              }}
-            >
-              Signin
-            </button>
-            <p className="account">
-              D'ont have an account? <Link to="/signup">Signup</Link>
-            </p>
-            <p
-              onClick={() => {
-                setshowform("showforgotpassword");
-              }}
-              className="forgotpass"
-            >
-              forgot password ?
-            </p>
-          </form>
-          {haserror && (
-            <p style={{ color: "red", marginTop: "10px" }}>{firebaseError}</p>
-          )}
-        </div>
-        <form className={`forgotpassword ${showform}`}>
-          <div
-            className="close"
-            onClick={() => {
-              setshowform("");
+        {showModal && (
+          <Modal closeModal={closeModal}>
+           <input
+                onChange={(eo) => {
+                  setresetPass(eo.target.value);
+                }}
+                required
+                placeholder=" E-mail : "
+                type="email"
+                className="reset-email"
+              />
+              <button
+               className="mtt reset-pass-btn"
+                onClick={(eo) => {
+                  eo.preventDefault();
+
+                  sendPasswordResetEmail(auth, resetPass)
+                    .then(() => {
+                      console.log("send email");
+                      setshowSendEmail(true);
+                    })
+                    .catch((error) => {
+                      // ..
+                    });
+                }}
+              >
+                Reset Password
+              </button>
+              {showSendEmail && (
+                <p className="check-email">
+                  Please check your email to reset your password.
+                </p>
+              )}
+          </Modal>
+          
+        )}
+
+        <form>
+          <input
+            onChange={(eo) => {
+              setemail(eo.target.value);
             }}
-          >
-            <i className="fa-solid fa-xmark"></i>
-          </div>
-          <input onChange={(eo) => setresetemail(eo.target.value)} required placeholder="Email" type="email" />
+            required
+            placeholder=" E-mail : "
+            type="email"
+          />
+
+          <input
+            onChange={(eo) => {
+              setpassword(eo.target.value);
+            }}
+            required
+            placeholder=" Password : "
+            type="password"
+          />
+
           <button
             onClick={(eo) => {
-              ForgotPassword(eo);
+              signInBTN(eo);
             }}
+            
           >
-            Reset password
+            Sign in
           </button>
-          {showSendemail && (
-            <p className="check-email">
-              Please check your email to reset your password
-            </p>
-          )}
+          <p className="account">
+            Don't hava an account <Link to="/signup"> Sign-up</Link>
+          </p>
+
+          <p
+            onClick={() => {
+              forgotPassword();
+            }}
+            className="forgot-pass mtt"
+          >
+            Forgot password ?
+          </p>
+
+          {hasError && <h2>{firebaseError}</h2>}
         </form>
       </main>
       <Footer />

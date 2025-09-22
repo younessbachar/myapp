@@ -1,58 +1,48 @@
-.forgotpassword{
-  background-color: whitesmoke;
-  width: 400px;
-  height: 300px;
-  border-radius: 10px;
-  position: fixed;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 2;
-  scale: 0;
-  transform: translateY(-100vh);
-  transition: 1s;
-
-}
-
-.showforgotpassword{
-  scale: 1;
-  transform: translateY(0);
-}
-
-.close .fa-xmark{
-  font-size: 28px;
-  color: black;
-  position: absolute;
-  top: 10px;
-  right: 18px;
-}
-
-.close .fa-xmark:hover{
-  cursor: pointer;
-  color: orange;
-  transform: rotate(180deg);
-  transition: all 0.3s;
-  font-size: 30px
-}
-
-.check-email{
-  font-size: 20px;
-  font-weight: bold;
-  color: #333;
-  margin-top: 20px;
-  line-height: 1.5;
-}
 
 
-
-.forgotpass{
-  font-size: 16px;
+.forgot-pass {
+  font-size: 19px;
   cursor: pointer;
   font-weight: normal;
 }
 
-.forgotpass:hover{
-  font-size: 18px;
+.forgot-pass:hover {
+  font-size: 20px;
+
   font-weight: bold;
-  transition: all 0.3s;
+  transition: 0.3s;
+}
+
+.check-email {
+  color: #333;
+  font-size: 16px;
+  margin-top: 25px;
+  line-height: 25px;
+}
+
+.reset-email{
+  width: 60%;
+}
+
+.reset-pass-btn{
+  padding: 8px 15px;
+}
+.reset-pass-btn:hover{
+  background-color: orange;
+  color: white;
+  transition: 0.3s;
+  cursor: pointer;
+  transform: scale(1.05);
+}
+
+.sign-in-btn{
+  padding: 8px 15px;  
+}
+
+.sign-in-btn:hover{
+  background-color: orange;
+  color: white;
+  transition: 0.3s;
+  cursor: pointer;
+  transform: scale(1.05);
 }
