@@ -46,3 +46,9 @@
   cursor: pointer;
   transform: scale(1.05);
 }
+
+.error{
+  color: red;
+  margin-top: 20px;
+  font-size: 18px;
+}

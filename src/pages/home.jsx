@@ -1,17 +1,33 @@
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import Header from "../components/header";
 import Footer from "../components/footer";
 import { Helmet } from "react-helmet-async";
-import { auth } from "../firebase/config";
+import { auth ,db} from "../firebase/config";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { sendEmailVerification } from "firebase/auth";
 import Loading from "../components/loading";
 import "./home.css"; // Import your CSS file for styling
 import Modal from "../shared/Modal";
+import { doc, setDoc } from "firebase/firestore"; 
 
 const Home = () => {
   const [user, loading] = useAuthState(auth);
+  const [subtask, setSubtask] = useState([]);
+  const [subtaskInput, setSubtaskInput] = useState("");
+  const [title, setTitle] = useState("");
+  
+  const addSubtask = (eo)=> {
+    eo.preventDefault();
+    if(!subtaskInput) return;
+    subtaskInput.trim() &&
+    setSubtask([...subtask, subtaskInput])
+    setSubtaskInput("");
+
+  }
+
+    
+
   let navigate = useNavigate();
   useEffect(() => {
     if (!user) {
@@ -73,30 +89,60 @@ const Home = () => {
               >
                 add New task <i className="fa-solid fa-plus"></i>
               </button>
-              {showModal && (
-                <Modal closeModal={closeModal}>
+
+                <Modal open={showModal} onClose={closeModal}>
                   <div style={{textAlign:"left"}}>
                     <input
-                    onChange={(eo) => {}}
+                    onChange={(eo) => {setTitle(eo.target.value);}}
                     required
                     placeholder=" Add title : "
                     type="text"
+                    value={title}
                   />
 
                   <div>
                       <input
-                    onChange={(e) => {e.preventDefault();}}
+                    onChange={(e) => {setSubtaskInput(e.target.value) ;e.preventDefault();}}
                     placeholder=" Details : "
                     type="text"
+                    value={subtaskInput}
+                    style={{marginRight: "5px"}}
                   />
-                  <button>add</button>
+                  <button onClick={addSubtask}>add</button>
                   </div>
-                  <button onClick={(eo) => { eo.preventDefault(); }
-                  } type="submit">Submit</button>
+
+                  <ul style={{maxHeight:"100px", overflowY:"scroll"}}>
+                    {subtask.map((item, index) => (
+                      <li key={index}>{item}</li>
+                    ))}
+                  </ul>
+
+                  <button onClick={async (eo) => { 
+                    eo.preventDefault()
+
+                    
+                      if(title){
+                    const taskid = new Date().getTime()  
+                    await setDoc(doc(db, user.uid, `${taskid}`), {
+                    title: title,
+                    details: subtask,
+                    id: taskid,
+                     }); 
+                      setshowModal(false);
+                      setSubtask([]);
+                      setTitle("");
+                      setSubtaskInput("")
+                      
+
+                      }
+                  
+                  ; }
+                  }
+                    type="submit">Submit</button>
                   </div>
             
                 </Modal>
-              )}
+              
             </section>
           </main>
           <Footer />

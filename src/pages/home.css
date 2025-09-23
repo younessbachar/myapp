@@ -107,3 +107,16 @@
  .Light .all-tasks .one-task .time{
   color: #f1f1f1db;
  }
+
+ /*========================
+  modal
+ ==========================*/
+
+.home .modal li{
+  font-size: 13px;
+  color: #333;
+  list-style-type: circle;
+  list-style-position: inside;
+  margin-bottom: 8px;
+}
+

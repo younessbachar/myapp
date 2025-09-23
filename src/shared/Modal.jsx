@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 
 /*
@@ -8,9 +8,16 @@ import { Helmet } from "react-helmet-async";
    }
 */
 // closeModal => function to close the modal from parent component
-const Modal = ({ closeModal, children }) => {
+const Modal = ({ open, onClose, children }) => {
+  const [closeModel, setcloseModal] = useState(false);
+  useEffect(() => {
+    setcloseModal(false);
+  }, [open]);
   return (
-    <div className="parent-of-model">
+    <div
+      className={`parent-of-model `}
+      style={{ display: open ? "flex" : "none" }}
+    >
       <Helmet>
         <style>
           {`
@@ -22,7 +29,6 @@ const Modal = ({ closeModal, children }) => {
           left: 0;
 
           background-color: rgba(0, 0, 0, 0.45);
-          display: flex;
           align-items: center;
           justify-content: center;
 }
@@ -37,14 +43,21 @@ const Modal = ({ closeModal, children }) => {
         justify-content: center;
         position: fixed;
         animation: showModal 0.8s;
-        
       }
      
       @keyframes showModal {
-        0% {scale: 0; transform: translateY(-100px);}
+        0% {scale: 0; transform: translateY(-100vh);}
         100% {scale: 1; transform: translateY(0);}
       }
 
+      .onClose {
+          animation: closeModal 0.8s;
+          }
+      @keyframes closeModal {
+        0% {scale: 1; transform: translateY(0);}
+        100% {scale: 0; transform: translateY(-100vh);}
+      }    
+          
 
 
 .close .fa-xmark {
@@ -97,10 +110,13 @@ const Modal = ({ closeModal, children }) => {
         `}
         </style>
       </Helmet>
-      <form className={`modal`}>
+      <form className={`modal ${closeModel && "onClose"}`}>
         <div
           onClick={() => {
-            closeModal();
+            setcloseModal(true);
+            setTimeout(() => {
+              onClose();
+            }, 800);
           }}
           className="close"
         >

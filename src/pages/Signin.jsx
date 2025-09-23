@@ -67,9 +67,9 @@ const Signin = () => {
     setshowModal(true);
   };
 
-  const closeModal = () => { 
+  const closeModal = () => {
     setshowModal(false);
-   }
+  };
   return (
     <>
       <Helmet>
@@ -78,42 +78,39 @@ const Signin = () => {
       <Header />
 
       <main>
-        {showModal && (
-          <Modal closeModal={closeModal}>
-           <input
-                onChange={(eo) => {
-                  setresetPass(eo.target.value);
-                }}
-                required
-                placeholder=" E-mail : "
-                type="email"
-                className="reset-email"
-              />
-              <button
-               className="mtt reset-pass-btn"
-                onClick={(eo) => {
-                  eo.preventDefault();
+        <Modal open={showModal} onClose={closeModal}>
+          <input
+            onChange={(eo) => {
+              setresetPass(eo.target.value);
+            }}
+            required
+            placeholder=" E-mail : "
+            type="email"
+            className="reset-email"
+          />
+          <button
+            className="mtt reset-pass-btn"
+            onClick={(eo) => {
+              eo.preventDefault();
 
-                  sendPasswordResetEmail(auth, resetPass)
-                    .then(() => {
-                      console.log("send email");
-                      setshowSendEmail(true);
-                    })
-                    .catch((error) => {
-                      // ..
-                    });
-                }}
-              >
-                Reset Password
-              </button>
-              {showSendEmail && (
-                <p className="check-email">
-                  Please check your email to reset your password.
-                </p>
-              )}
-          </Modal>
-          
-        )}
+              sendPasswordResetEmail(auth, resetPass)
+                .then(() => {
+                  console.log("send email");
+                  setshowSendEmail(true);
+                })
+                .catch((error) => {
+                  // ..
+                });
+            }}
+          >
+            Reset Password
+          </button>
+          {showSendEmail && (
+            <p className="check-email">
+              Please check your email to reset your password.
+            </p>
+          )}
+        </Modal>
 
         <form>
           <input
@@ -138,7 +135,6 @@ const Signin = () => {
             onClick={(eo) => {
               signInBTN(eo);
             }}
-            
           >
             Sign in
           </button>
@@ -155,7 +151,7 @@ const Signin = () => {
             Forgot password ?
           </p>
 
-          {hasError && <h2>{firebaseError}</h2>}
+          {hasError && <h2 className="error">{firebaseError}</h2>}
         </form>
       </main>
       <Footer />

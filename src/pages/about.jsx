@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../components/header'
 import Footer from '../components/footer'
 import { useNavigate } from 'react-router-dom'
@@ -8,6 +8,7 @@ import Loading from '../components/loading'
 
 const About = () => {
   const [user, loading] = useAuthState(auth)
+
   let navigate = useNavigate();
   useEffect(()=>{
     if(!user && !loading){
@@ -30,7 +31,7 @@ const About = () => {
       <>
         <Header />
         <main>
-          About page
+          About Page
         </main>
         <Footer />
       </>   
