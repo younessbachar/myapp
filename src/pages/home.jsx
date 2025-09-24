@@ -10,12 +10,15 @@ import Loading from "../components/loading";
 import "./home.css"; // Import your CSS file for styling
 import Modal from "../shared/Modal";
 import { doc, setDoc } from "firebase/firestore"; 
+import ReactLoading from 'react-loading';
 
 const Home = () => {
   const [user, loading] = useAuthState(auth);
   const [subtask, setSubtask] = useState([]);
   const [subtaskInput, setSubtaskInput] = useState("");
   const [title, setTitle] = useState("");
+  const [showloading, setShowloading] = useState(false);
+  const [showmessage, setshowmessage] = useState(false)
   
   const addSubtask = (eo)=> {
     eo.preventDefault();
@@ -45,7 +48,55 @@ const Home = () => {
 
   if (!user) {
     return (
-      <>
+       <>
+        <Helmet>
+          <title>HOME Page</title>
+          <meta name="description" content="HOMEEEEEEEEEEEE" />
+        </Helmet>
+
+        <Header />
+
+        <main>
+          <p className="pls">
+            Please{" "}
+            <Link style={{ fontSize: "30px" }} to="/signin">
+              sign in
+            </Link>{" "}
+            to continue... <span><i className="fa-solid fa-heart"></i></span>
+          </p>
+        </main>
+
+        <Footer />
+      </>
+    );
+  } // Add `user` and `navigate` as dependencies
+  if (user) {
+    if (!user.emailVerified) {
+      return (
+        <>
+          <Header />
+          <main>
+            <p>Welcome : {user.displayName}</p>
+            <p>Please verify your email to continue</p>
+            <button
+              onClick={() => {
+                sendEmailVerification(auth.currentUser).then(() => {
+                  // Email verification sent!
+                  // ...
+                });
+              }}
+              className="delete"
+            >
+              Send Email
+            </button>
+          </main>
+          <Footer />
+        </>
+      );
+    }
+    if (user.emailVerified) {
+      return (
+              <>
         <Helmet>
           <title>HOME Page </title>
           <meta
@@ -111,7 +162,7 @@ const Home = () => {
                   <button onClick={addSubtask}>add</button>
                   </div>
 
-                  <ul style={{maxHeight:"100px", overflowY:"scroll"}}>
+                  <ul style={{maxHeight:"100px", overflowY:"auto"}}>
                     {subtask.map((item, index) => (
                       <li key={index}>{item}</li>
                     ))}
@@ -121,7 +172,8 @@ const Home = () => {
                     eo.preventDefault()
 
                     
-                      if(title){
+                    if(title){
+                    setShowloading(true)
                     const taskid = new Date().getTime()  
                     await setDoc(doc(db, user.uid, `${taskid}`), {
                     title: title,
@@ -132,110 +184,34 @@ const Home = () => {
                       setSubtask([]);
                       setTitle("");
                       setSubtaskInput("")
+                      setShowloading(false)
+                      setshowmessage(true)
                       
+                      setTimeout(() => {
+                        setshowmessage(false)
+                      }, 4000);
 
                       }
                   
                   ; }
                   }
-                    type="submit">Submit</button>
+                    type="submit">
+                      { showloading ? <ReactLoading type={"spin"} color={"white"} height={20} width={20} /> : "Submit" }
+                    </button>
                   </div>
             
                 </Modal>
               
             </section>
+            <p style={{right: showmessage ? "18px" : "-100vw"}} className="success">Task added successfully <i class="fa-regular fa-circle-check"></i></p>
           </main>
           <Footer />
         </div>
       </>
-    );
-  } // Add `user` and `navigate` as dependencies
-  if (user) {
-    if (!user.emailVerified) {
-      return (
-        <>
-          <Header />
-          <main>
-            <p>Welcome : {user.displayName}</p>
-            <p>Please verify your email to continue</p>
-            <button
-              onClick={() => {
-                sendEmailVerification(auth.currentUser).then(() => {
-                  // Email verification sent!
-                  // ...
-                });
-              }}
-              className="delete"
-            >
-              Send Email
-            </button>
-          </main>
-          <Footer />
-        </>
-      );
-    }
-    if (user.emailVerified) {
-      return (
-        <>
-          <Helmet>
-            <title>HOME Page </title>
-            <meta
-              name="description"
-              content="home Page created using create-react-app"
-            />
-          </Helmet>
-          <div>
-            <Header />
-            <main>
-              Welcome: {user.displayName} <span>🧡</span>
-            </main>
-            <Footer />
-          </div>
-        </>
       );
     }
   }
 
-  return (
-    <>
-      <Helmet>
-        <title>HOME Page </title>
-        <meta
-          name="description"
-          content="home Page created using create-react-app"
-        />
-      </Helmet>
-      <div>
-        <Header />
-        {user && (
-          <main>
-            Welcome: {user.displayName} <span>🧡</span>
-          </main>
-        )}
-
-        {!user && (
-          <main>
-            <p className="pls">
-              Please{" "}
-              <Link
-                style={{
-                  fontSize: "30px",
-                  cursor: "pointer",
-                  padding: "10px",
-                  color: "cyan",
-                }}
-                to="/signin"
-              >
-                sign in
-              </Link>{" "}
-              to continue... <span>🧡</span>
-            </p>
-          </main>
-        )}
-        <Footer />
-      </div>
-    </>
-  );
 };
 
 export default Home;

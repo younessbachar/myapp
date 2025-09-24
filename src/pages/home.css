@@ -120,3 +120,20 @@
   margin-bottom: 8px;
 }
 
+.fa-circle-check{
+  color: rgb(9, 198, 198);
+  margin-left: 6px;
+}
+
+.success{
+  background-color: whitesmoke;
+  color: #1b1b1b;
+  padding: 8px 12px;
+  font-size: 17px;
+  border-radius: 6px;
+  position: fixed;
+  top: 100px;
+  right: -100vw;
+  transition: 1s;
+}
+
